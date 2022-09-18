@@ -1,6 +1,10 @@
 var Number1=20;
 let Number2=3;
 const { Console } = require("console");
+const path =require('path');
+
+const express =require("express");
+const app = express();
 var http=require("http");
 console.log(http);
 var Calculate=(...inputs)=>{
@@ -63,11 +67,19 @@ console.log(process.argv);
 http.createServer((req,res)=>{
 res.writeHeader(200,{"contet-type":"application/json"});
    res.write(JSON.stringify(data));
-     res.end();
+    res.end();
+
 }).listen(5000);
-const express =require("express");
-const app = express();
+app.set('view engine','ejs');
+
+
+publicPath=path.join(__dirname,'public');
+app.use(express.static(publicPath));
 app.get('/api',(req,res)=>{
+   console.log(__dirname);
+   console.log(__filename);
 res.send(data);
 });
+
+
 app.listen(5001);
